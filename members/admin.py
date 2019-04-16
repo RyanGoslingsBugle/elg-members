@@ -102,7 +102,7 @@ def make_door(request, queryset):
         par = cells[0].paragraphs[0]
         par.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
         par.add_run(text)
-        if obj.card_number < 999:
+        if obj.card_number != "999":
             if obj.current_membership:
                 text = str(obj.card_number)
             else:
