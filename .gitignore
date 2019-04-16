@@ -104,4 +104,6 @@ venv.bak/
 .mypy_cache/
 
 *.csv
-idea/
+*.bak
+.idea/
+import_door_csv.py

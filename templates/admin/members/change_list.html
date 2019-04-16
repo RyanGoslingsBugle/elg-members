@@ -1,0 +1,71 @@
+{% extends "admin/change_list.html" %}
+
+{% load bootstrap4 %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    {% bootstrap_javascript jquery='full' %}
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+{% endblock %}
+
+{% block object-tools-items %}
+    {{ block.super }}
+    <li>
+        <a class="historylink" href="{% url 'admin:export' %}">Export as CSV</a>
+    </li>
+    <li>
+        <a class="historylink" onclick="modalHandler()" href="#">Export door list</a>
+    </li>
+
+    <div class="modal" id="door-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Door list export</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form action="{% url 'admin:get_door' %}">
+              <div class="modal-body">
+                  <div class="form-group">
+                    <label for="datepicker">Pick a date to start from.</label>
+                    <input class="form-control" id="datepicker" name="start_date" required>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Export</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+        <script type="text/javascript">
+
+        $(document).ready(function() {
+            modalHandler = function() {
+                let btn = $(this);
+                $.ajax({
+                        url: btn.attr("data-url"),
+                        type: 'get',
+                        dataType: 'json',
+                        beforeSend: function () {
+                            $("#door-modal").modal("show");
+                        }
+                });
+            };
+
+            $('#datepicker').datepicker();
+        });
+
+    </script>
+
+{% endblock %}
