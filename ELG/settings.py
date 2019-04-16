@@ -23,14 +23,18 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'wh9u2#0x-9=!&1+7%4rhhmyb4*v6*+
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_BROWSER_XSS_FILTER = True
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
 X_FRAME_OPTIONS = 'DENY'
-CSRF_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True
+if DEBUG == "False":
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+else:
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
+    SECURE_SSL_REDIRECT = False
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '[]')
-
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', ["127.0.0.1", "localhost"])
 
 # Application definition
 
