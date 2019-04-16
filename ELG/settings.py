@@ -34,7 +34,7 @@ else:
     CSRF_COOKIE_SECURE = False
     SECURE_SSL_REDIRECT = False
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', ["127.0.0.1", "localhost"])
+ALLOWED_HOSTS = ['elg-members.herokuapp.com', '127.0.0.1', 'localhost']
 
 # Application definition
 
